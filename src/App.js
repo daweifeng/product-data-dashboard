@@ -3,9 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectProduct, fetchProduct, PRODUCT_REJECTED, PRODUCT_FULFILLED, PRODUCT_IDLE, PRODUCT_LOADING } from "./features/productSlice"
 import { InfoBar } from "./app/components/InfoBar";
 import { SalesGraph } from "./app/components/SalesGraph";
+import { ProductDataTable } from "./app/components/ProductDataTable"
 
 import logo from "./static/logo.png"
 
+import "antd/dist/antd.css";
 import './App.css';
 
 function App() {
@@ -46,6 +48,9 @@ function App() {
             </div>
             <div className="data-section">
               <SalesGraph
+                salesData={product.sales}
+              />
+              <ProductDataTable 
                 salesData={product.sales}
               />
             </div>
