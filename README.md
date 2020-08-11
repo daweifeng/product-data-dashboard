@@ -1,3 +1,19 @@
+# Product Data Dashboard
+
+## Packages Used
+- React@16.13.1
+- Redux@4.0.5
+- @reduxjs/toolki
+- react-chart
+- antd
+
+## Demo
+
+[https://product-data-dashboard.dawei.io/](https://product-data-dashboard.dawei.io/)
+
+<hr />
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
