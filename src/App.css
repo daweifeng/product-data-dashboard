@@ -1,12 +1,12 @@
 
 
 .header {
-  padding: 16px;
+  padding: 24px;
   background-color: #fff;
 }
 
 .header .logo {
-  height: 50px;
+  height: 30px;
   width: auto;
 }
 
