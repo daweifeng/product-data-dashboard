@@ -1,8 +1,8 @@
 FROM node:12.18.1-alpine AS build
 
-WORKDIR /app/dawei
+WORKDIR /app/product-data-dashboard
 
-ENV PATH /app/dawei/node_modules/.bin:$PATH
+ENV PATH /app/product-data-dashboard/node_modules/.bin:$PATH
 
 COPY package.json ./
 
@@ -14,7 +14,7 @@ RUN npm run build
 
 # production environment
 FROM nginx:stable-alpine
-COPY --from=build /app/dawei/build /usr/share/nginx/html
+COPY --from=build /app/product-data-dashboard/build /usr/share/nginx/html
 # new
 COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
