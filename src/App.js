@@ -1,58 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import { selectProduct, fetchProduct, PRODUCT_REJECTED, PRODUCT_FULFILLED, PRODUCT_IDLE, PRODUCT_LOADING } from "./features/productSlice"
+import { InfoBar } from "./app/components/InfoBar";
+import { SalesGraph } from "./app/components/SalesGraph";
+
+import logo from "./static/logo.png"
+
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+  const dispatch = useDispatch();
+  const product = useSelector(selectProduct);
+  const productStatus = useSelector((state) => state.product.status);
+  const error = useSelector((state) => state.product.error);
+
+  useEffect(() => {
+    if (productStatus === PRODUCT_IDLE) {
+      dispatch(fetchProduct())
+    }
+  }, [productStatus, dispatch]);
+
+  if (productStatus === PRODUCT_LOADING) {
+    return <div>Loading..</div>
+  }
+  if (productStatus === PRODUCT_REJECTED) {
+    return <div>{error}</div>
+  }
+  
+  if (productStatus === PRODUCT_FULFILLED) {
+    return (
+      <div className="App">
+        <div className="header">
+          <div className="logo">
+            <img src={logo} alt="stackline logo" />
+          </div>
+        </div>
+        <div className="main">
+            <div className="info-bar">
+              <InfoBar 
+                imgSrc={product.image}
+                title={product.title}
+                subtitle={product.subtitle}
+                tags={product.tags}
+              />
+            </div>
+            <div className="data-section">
+              <SalesGraph
+                salesData={product.sales}
+              />
+            </div>
+        </div>
+      </div>
+    );
+  } else {
+    return <div>Loading..</div>
+  }
+  
 }
 
 export default App;

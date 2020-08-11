@@ -1,0 +1,9 @@
+.sales-graph-content {
+  background-color: #fff;
+  padding: 24px 48px;
+  box-shadow: 0px 0px 10px #ebebeb;
+}
+
+.sales-graph-content .title {
+  margin: 16px 0;
+}
